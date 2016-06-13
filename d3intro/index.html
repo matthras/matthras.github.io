@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>FCC Melbourne - D3</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+		
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>D3.js</h1> 
+					<h2>Data-Driven Documents</h2>
+					<h3>d3js.org</h3>
+				</section>
+				<section style="text-align:left;">
+					<h2>What is D3?</h2>
+					<p class="fragment">D3 is a Javascript library for manipulating documents based on data.</p>
+					<ul>
+						<li class="fragment"><em>Most</em> robust library.</li>
+						<li class="fragment">Steep learning curve - tutorials + exercises recommended!
+							<ul class="fragment">
+								<li><a href="https://www.dashingd3js.com/table-of-contents">DashingD3Tutorials</a>.</li>
+								<li><a href="https://bost.ocks.org/mike/bar/">Let's Make A Bar Chart</a>.</li>
+							</ul>
+						</li>
+						<li class="fragment">Simpler alternatives: <a href="http://www.chartjs.org/">Chart.js</a>, <a href="https://plot.ly/">plot.ly</a>.</li>
+					</ul>
+				</section>
+				<section style="text-align:left;">
+					<h3>Examples</h3>
+						<p><a href="http://bl.ocks.org/Caged/6476579">Bar Chart/Histogram</a></p>
+						<p><a href="https://bl.ocks.org/mbostock/3887118">Scatterplots</a></p>
+						<p><a href="http://bl.ocks.org/d3noob/raw/5028304/">Sankey Diagram</a></p>
+						<p><a href="http://bl.ocks.org/mbostock/4557698">Network Diagrams</a></p>
+						<p><a href="http://bl.ocks.org/mbostock/9943478">County Bubbles</a></p>
+						<p><a href="http://bl.ocks.org/mbostock/e6962a152275373f8504">Rainbow Tree Map</a></p>
+						<p><a href="http://bl.ocks.org/mbostock/7607999">Hierarchical Edge Bundling</a></h3>
+				</section>
+				<section style="text-align:left;">
+					<p>Code Sample For A Simple Bar Chart</p>
+					<pre style="width:100%"><code class="hljs" data-trim contenteditable>
+// Sets the scale for the x-axis
+var x = d3.scale.linear().domain([0, d3.max(data)]).range([0, width]);					
+// Sets the dimensions of the chart container
+var chart = d3.select(".chart")
+    .attr("width", width)
+    .attr("height", barHeight * data.length);
+// For each data entry, attaches a graphic object to the chart
+var bar = chart.selectAll("g")
+    .data(data)
+    .enter().append("g")
+    .attr("transform", 
+    	function(d, i) { return "translate(0," + i * barHeight + ")"; });
+// For each graphic object, appends a rectangle with width and height attributes
+bar.append("rect")
+    .attr("width", x)
+    .attr("height", barHeight - 1);
+					</code></pre>
+				</section>
+				<section style="text-align:left;">
+					<h2>Where is D3 used?</h2>
+					<ul>
+						<li>Researchers display data in their papers and journals.</li>
+						<li>Corporate institutions display interactive data on their websites.</li>
+						<li>Data scientists communicate their data to clients/stakeholders.</li>
+					</li>
+					</ul>
+					<p>As web devs, you may interact with one or more of such professionals depending on the organisation you work for.</p>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+		
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				history: true,
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
