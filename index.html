@@ -9,12 +9,11 @@
     <link rel="stylesheet" href="css/app.css">
   </head>
   <body>
-    <div class="row title-bar">
-      <div class="small-12 medium-4 columns title-bar-left">
+    <div class="title-bar">
+      <div class="small-12 medium-4 columns title-bar">
          <span class="title-bar-title">Matthew Mack's Digital Portfolio</span>
       </div>
-      <div class="medium-4 columns"></div>
-      <div class="small-12 medium-4 columns title-bar-right">
+      <div class="small-12 medium-4 medium-offset-4 columns title-bar">
         <span class="title-bar-title">mm@matthewmack.com.au</span>
       </div>
     </div>
@@ -27,9 +26,88 @@
       </div>
     </div>-->
 
-        <!-- Left Menu -->
+    <!-- INTRO PARAGRAPH -->
+    <div class="whitebg">
+    	<div class="row">
+    	<div class="small-12 medium-10 medium-offset-1 columns text-center">
+    		Matthew Mack is a mathematician, cellist, teacher, web developer and content producer who currently teaches undergraduate mathematics at three tertiary institutions, and is currently teaching himself full-stack web development. This page is intended to be a collection of links to all digital content produced thus far.
+    	</div>	
+    	</div>
+    </div>
+
+    <!-- WEB DEV PROJECTS -->
+    <div class="row" style="padding-top:50px; padding-bottom:50px;">
+    	<div class="small-12 medium-10 medium-offset-1 columns">
+    	<h2 class='text-center'>Web Development Projects</h2>
+      <hr>
+      <div class="row">
+      <h3>FreeCodeCamp Projects</h3>
+    		<div class="small-12 medium-6 columns">
+          <h4>Portfolio Page</h4> 
+            <ul>
+            	<li>CSS: <a href="foundation.zurb.com/">Zurb Foundation</a>.</li>
+            	<li>Hosted on Github Pages.</li>
+            	<li><a href="https://github.com/matthras/matthras.github.io">Written from scratch - repo link.</a></li>
+            </ul>
+        </div>
+      	<div class="small-12 medium-6 columns">
+          <h4>Random Maths Joke Generator</h4>
+            <ul>
+              <li>Quote Generator Zipline</li>
+              <li>Jokes are hard-coded into the JS file</li>
+              <li>To-Do: Improve design, use an API</li>
+            </ul>
+      	</div>
+      </div>
         <div class="row">
-          <!-- <div class="small-12 medium-3 columns" id="leftmenu">
+        <h3>Other Web Dev. Work</h3>
+          <div class="small-12 medium-6 columns">
+            <h4>Wordpress Websites</h4>
+              <ul>
+                <li> Personal Website: http://matthewmack.com.au <br /> The bulk of my web dev. work has been mostly done with Wordpress since my clients tend to be individual professionals or small businesses who simply needed a website to represent their business or personal brand, but also wanted to edit the content themselves. Through this work I built on my existing HTML knowledge and learnt basic CSS and PHP.</li>
+              </ul>
+          </div>
+          <div class="small-12 medium-6 columns">
+            <h4><a href="https://oaktree.org/annualreport2015">Oaktree 2015 Annual Report</a></h4>
+              <ul>
+                <li>Built on NationBuilder</li>
+              </ul>
+          </div>
+        </div>
+        <div class="row">
+          <h3>Fun JS Projects</h3>
+          <div class='small-12 medium-6 columns'>
+            <h4><a href='d3intro/index.html'>Intro To D3 Presentation</a></h4>
+            <ul>
+              <li>~10 minute Presentation at a FreeCodeCamp Melbourne meetup</li>
+              <li>Written in reveal.js</li>
+            </ul>
+          </div>
+          <div class='small-12 medium-6 columns'>
+        </div>
+	    </div>
+	   </div>
+     </div>
+	   
+     <!-- MATH APPS -->
+    <div class="row" style="padding-top:50px; padding-bottom: 50px;">
+      <!-- INTRO -->
+      <div class="small-12 medium-10 medium-offset-1 columns">
+        <h2 class="text-center">Interactive Math Applications</h2>
+        <hr>
+        <p class='text-center'>I'm interested in developing interactive maths applications that allow students to explore mathematical theories and ideas.</p>
+        <div class='row'>
+          <div class='small-12 medium-6 columns'>
+            <h4>Javascript Apps</h4>
+          </div>
+          <div class='small-12 medium-6 columns'>
+            <h4>GeoGebra Apps</h4>
+          </div>
+        </div>
+      
+
+    </div>
+  <!-- <div class="small-12 medium-3 columns" id="leftmenu">
               <ul class="menu vertical" data-magellan> <!-- Need to find out how to shrink this to hamburger menu when on mobile 
                 <li><a href="#webdev">Web Dev.</a></li>
                 <li><a href="#mathapps">Math Apps</a></li>
@@ -41,22 +119,27 @@
 
           </div> -->
 
-        <!-- Content Section -->
-          <div class="small-12 medium-10 medium-offset-1 columns" id="content">
-            <div class="sections">	
+        <!-- Content Section 
+          <div class="small-12 medium-10 medium-offset-1 columns" id="content" style="background-color:#AAA; background-opacity:0.5;">
+            <div class="sections" style="margin-top:1em;">	
             <section id="webdev" data-magellan-target="webdev">
               <h2>Web Development Projects</h2>
               <div class="row">
               	<div class="small-12 medium-6 columns">
 	              <h3>FreeCodeCamp Projects</h3>
 	              <ul>
-	                <li> This Website! <br /> This portfolio page is coded from scratch and uses only <a href="foundation.zurb.com/">Zurb Foundation</a> as a CSS framework. As you'll have already noticed, it's hosted using Github pages, which is indicative of my familiarity and knowledge of Github. Files for this website can all be found <a href="https://github.com/matthras/matthras.github.io">here</a>. </li>
+	                <li> Portfolio Page - this website! 
+	                <ul>
+	                	<li>CSS: <a href="foundation.zurb.com/">Zurb Foundation</a>.</li>
+	                	<li>Hosted on Github Pages.</li>
+	                	<li><a href="https://github.com/matthras/matthras.github.io">Written from scratch - repo link.</a></li>
+	                </ul>
 	              </ul>
 	             </div>
 	             <div class="small-12 medium-6 columns">
 	              <h3>Other Web Dev. Work</h3>
 	              <ul>
-	                <li> My personal website: http://matthewmack.com.au <br /> The bulk of my web dev. work has been mostly done with Wordpress since my clients tend to be individual professionals or small businesses who simply needed a website to represent their business or personal brand, but also wanted to edit the content themselves. Through this work I built on my existing HTML knowledge and learnt basic CSS and PHP.</li>
+	                <li> Personal Website: http://matthewmack.com.au <br /> The bulk of my web dev. work has been mostly done with Wordpress since my clients tend to be individual professionals or small businesses who simply needed a website to represent their business or personal brand, but also wanted to edit the content themselves. Through this work I built on my existing HTML knowledge and learnt basic CSS and PHP.</li>
 	              </ul>
 	             </div>
             </section>
@@ -93,7 +176,7 @@
 
       </div>
     </div>
-
+-->
 
     <script src="js/vendor/jquery.js"></script>
     <script src="js/vendor/what-input.js"></script>
