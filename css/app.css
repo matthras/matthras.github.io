@@ -2,7 +2,11 @@ body {
 	background-image: url("../img/back1.gif");
 }
 
-
+.whitebg0 {
+	padding-top: 50px;
+	padding-bottom: 50px;
+	width: 100%;
+}
 
 .whitebg0 h1,
 .whitebg0 h2, 
