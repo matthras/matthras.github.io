@@ -2,16 +2,35 @@ body {
 	background-image: url("../img/back1.gif");
 }
 
-h1, h2, h3, h4, h5, p, ul, li {
+
+
+.whitebg0 h1,
+.whitebg0 h2, 
+.whitebg0 h3, 
+.whitebg0 h4, 
+.whitebg0 h5, 
+.whitebg0 p, 
+.whitebg0 ul, 
+.whitebg0 li {
 	color: #FFF;
 }
 
 .whitebg {
 	width: 100%;
 	background-color:white;
-	color:black;
 	padding-top:50px;
 	padding-bottom:50px;
+}
+
+.whitebg h1,
+.whitebg h2, 
+.whitebg h3, 
+.whitebg h4, 
+.whitebg h5, 
+.whitebg p, 
+.whitebg ul, 
+.whitebg li {
+	color:black;
 }
 
 .white75 {

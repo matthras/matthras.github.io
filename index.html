@@ -9,14 +9,16 @@
     <link rel="stylesheet" href="css/app.css">
   </head>
   <body>
-    <div class="title-bar">
-      <div class="small-12 medium-4 columns title-bar">
+  <div data-sticky-container>
+    <div class="title-bar sticky" data-sticky data-options="marginTop:0;" style="width:100%" data-top-anchor="1">
+      <div class="small-12 medium-4 columns title-bar-left">
          <span class="title-bar-title">Matthew Mack's Digital Portfolio</span>
       </div>
-      <div class="small-12 medium-4 medium-offset-4 columns title-bar">
+      <div class="small-12 medium-4 medium-offset-4 columns title-bar-right">
         <span class="title-bar-title">mm@matthewmack.com.au</span>
       </div>
     </div>
+  </div>
     <!--<div class="title-bar">
       <div class="title-bar-left">
         <span class="title-bar-title">Matthew Mack's Digital Portfolio</span>
@@ -27,16 +29,14 @@
     </div>-->
 
     <!-- INTRO PARAGRAPH -->
-    <div class="whitebg">
-    	<div class="row">
+    	<div class="row whitebg">
     	<div class="small-12 medium-10 medium-offset-1 columns text-center">
     		Matthew Mack is a mathematician, cellist, teacher, web developer and content producer who currently teaches undergraduate mathematics at three tertiary institutions, and is currently teaching himself full-stack web development. This page is intended to be a collection of links to all digital content produced thus far.
     	</div>	
     	</div>
-    </div>
 
     <!-- WEB DEV PROJECTS -->
-    <div class="row" style="padding-top:50px; padding-bottom:50px;">
+    <div class="row whitebg0" style="padding-top:50px; padding-bottom:50px;">
     	<div class="small-12 medium-10 medium-offset-1 columns">
     	<h2 class='text-center'>Web Development Projects</h2>
       <hr>
@@ -90,9 +90,9 @@
      </div>
 	   
      <!-- MATH APPS -->
-    <div class="row" style="padding-top:50px; padding-bottom: 50px;">
+    <div class="row whitebg" style="padding-top:50px; padding-bottom: 50px;">
       <!-- INTRO -->
-      <div class="small-12 medium-10 medium-offset-1 columns">
+      <div class="small-12 medium-10 medium-offset-1 columns" style='color:black;'>
         <h2 class="text-center">Interactive Math Applications</h2>
         <hr>
         <p class='text-center'>I'm interested in developing interactive maths applications that allow students to explore mathematical theories and ideas.</p>
@@ -104,8 +104,6 @@
             <h4>GeoGebra Apps</h4>
           </div>
         </div>
-      
-
     </div>
   <!-- <div class="small-12 medium-3 columns" id="leftmenu">
               <ul class="menu vertical" data-magellan> <!-- Need to find out how to shrink this to hamburger menu when on mobile 
