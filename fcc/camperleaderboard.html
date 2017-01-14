@@ -1,0 +1,113 @@
+<head>
+	<link type="text/css" rel="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css">
+</head>
+<body>
+	<div id="root"></div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.18.1/babel.min.js"></script>
+	<!-- Loading jQuery library for API request -->
+	<script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+  crossorigin="anonymous"></script>
+
+	<script type="text/babel">
+	var CampersList = React.createClass({
+		render: function() {
+			var camperNodes = this.props.data.map(function(camper, index) {
+				return (
+					<tr key={index+1}>
+						<td>#{index+1}</td>
+						<td><img src={camper.img} /></td>
+						<td>{camper.username}</td>
+						<td>{camper.recent}</td>
+						<td>{camper.alltime}</td>
+					</tr>
+				);
+			});
+		return (
+			<tbody>
+				{camperNodes}
+			</tbody>
+		);
+		}
+	})
+
+	var TableBody = React.createClass({
+		getInitialState: function() {
+			return {data: []};
+		},
+		componentDidMount: function() {
+	      $.ajax({
+	      url: this.props.url,
+	      dataType: 'json',
+	      cache: false,
+	      success: function(data) {
+	        this.setState({data: data}); // Notice this
+	      }.bind(this),
+	      error: function(xhr, status, err) {
+	        console.error(this.props.url, status, err.toString());
+	      }.bind(this)
+	    });
+	  },
+	  componentWillUpdate: function() {
+	      $.ajax({
+	      url: this.props.url,
+	      dataType: 'json',
+	      cache: false,
+	      success: function(data) {
+	        this.setState({data: data}); // Notice this
+	      }.bind(this),
+	      error: function(xhr, status, err) {
+	        console.error(this.props.url, status, err.toString());
+	      }.bind(this)
+	    });
+		},
+		render: function() {
+			return (
+				<CampersList data={this.state.data} />
+			);
+		}
+	});
+
+	class Table extends React.Component {
+		constructor(props) {
+			super(props);
+			this.state = {sort: "https://fcctop100.herokuapp.com/api/fccusers/top/recent"};
+			this.recent = this.recent.bind(this);
+			this.alltime = this.alltime.bind(this);
+		}
+
+	recent() {
+		this.setState({sort:"https://fcctop100.herokuapp.com/api/fccusers/top/recent"});
+	}
+
+	alltime() {
+		this.setState({sort:"https://fcctop100.herokuapp.com/api/fccusers/top/alltime"});
+	}
+
+	render() {
+		return(
+			<table>
+			<thead>
+				<tr>
+					<th>Ranking</th>
+					<th></th>
+					<th>Username</th>
+					<th><a href="#" onClick={this.recent}>Points in Past 30 Days</a></th>
+					<th><a href="#" onClick={this.alltime}>All Time</a></th>
+				</tr>
+			</thead>
+				<TableBody url={this.state.sort} />
+			</table>
+		)
+	}
+
+	}
+
+
+	ReactDOM.render(
+		<Table />,
+		document.getElementById('root')
+	)
+	</script>
+</body>
