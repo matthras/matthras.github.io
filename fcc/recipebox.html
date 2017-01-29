@@ -1,0 +1,247 @@
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css"></link>
+</head>
+<body>
+	<div id="root"></div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/react-bootstrap/0.30.7/react-bootstrap.js"></script>
+	<script>
+	var Alert = ReactBootstrap.Alert;
+	var Row = ReactBootstrap.Row;
+	var Grid = ReactBootstrap.Grid;
+	var Col = ReactBootstrap.Col;
+	var Button = ReactBootstrap.Button;
+	var Accordion = ReactBootstrap.Accordion;
+	var Panel = ReactBootstrap.Panel;
+	var ListGroup = ReactBootstrap.ListGroup;
+	var ListGroupItem = ReactBootstrap.ListGroupItem;
+	var PanelGroup = ReactBootstrap.PanelGroup;
+	var Modal = ReactBootstrap.Modal;
+
+	// Function to generate slug for each recipe to use as an id/unique key
+	var slugify = function(string) {
+		return string.replace(/\s+/g,'').toLowerCase();
+	}
+
+	// Idea: Update dummyData, then use dummyData to update localStorage, then re-render.
+	var dummyData = {data: [{
+				id: 'pumpkinpie',
+				name: 'Pumpkin Pie',
+				ingredients: 'pumpkin puree, sweetened condensed milk, eggs, pumpkin pie spice, pie crust'
+			},
+			{
+				id: 'spaghetti',
+				name: 'Spaghetti',
+				ingredients: 'spaghetti noodles, tomato sauce, meatballs'
+			}]};
+	localStorage.setItem('recipes', JSON.stringify(dummyData));
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.18.1/babel.min.js"></script>
+	<script type="text/babel">
+	class RecipeBox extends React.Component {
+		constructor(props) {
+			super(props);
+			this.state = this.props.data;
+			this.addRecipe = this.addRecipe.bind(this);
+			this.deleteRecipe = this.deleteRecipe.bind(this);
+			this.editRecipe = this.editRecipe.bind(this);
+		}
+		deleteRecipe(item) {
+			var dummyStatedata = this.state.data.filter(function(itm){
+				return item.id !== itm.id;
+			});
+			localStorage.recipes = '{"data":'+JSON.stringify(dummyStatedata)+'}'
+			this.setState({data: dummyStatedata})
+		}
+
+		addRecipe(item) {
+			var dummyStatedata = this.state.data;
+			dummyStatedata.push(item);
+			localStorage.recipes = '{"data":'+JSON.stringify(dummyStatedata)+'}'
+			this.setState({data: dummyStatedata})
+		}
+
+		editRecipe(item) {
+			var dummyStatedata = this.state.data;
+			for(var i=0; i<dummyStatedata.length; i++){
+				if (item.id === dummyStatedata[i].id) {
+					dummyStatedata[i].name = item.name;
+					dummyStatedata[i].ingredients = item.ingredients;
+					break;
+				}
+			}
+			localStorage.recipes = '{"data":'+JSON.stringify(dummyStatedata)+'}'
+			this.setState({data:dummyStatedata});
+		}
+		render() {
+			return (
+				<Grid>
+				<Row className="show-grid">
+					<Col xs={12} md={10} mdOffset={1} >
+						<h1>FreeCodeCamp Recipe Box Project</h1>
+						<RecipeList recipedata={this.state.data} onRemove={this.deleteRecipe} onEdit={this.editRecipe} />
+						<AddRecipeModal onAdd={this.addRecipe} />
+					</Col>
+				</Row>
+				</Grid>
+			)
+		}
+	}
+
+	class RecipeList extends React.Component {
+		constructor(props) {
+			super(props);
+			this.remove = this.remove.bind(this);
+			this.edit = this.edit.bind(this);
+		}
+		remove(recipe){
+			return function(e) {
+				e.preventDefault();
+				return this.props.onRemove(recipe);
+			}.bind(this);
+		}
+		edit(recipe){
+			return this.props.onEdit(recipe);
+		}
+		render() {
+			var recipeData = this.props.recipedata.map(function(recipe,i) {
+				return (
+					<Panel collapsible header={recipe.name} eventKey={i} key={recipe.id}>
+					<RecipeIngredients ingredients={recipe.ingredients.split(', ')} />
+					<Button bsStyle="danger" onClick={this.remove(recipe)}>Remove</Button>
+					<EditRecipeModal recipeName={recipe.name} recipeIngredients={recipe.ingredients} editRecipeFunction={this.edit} />
+					</Panel>
+				)}.bind(this));
+			return (
+				<div>
+					<h2>Recipes</h2>
+					<PanelGroup>
+					{recipeData}
+					</PanelGroup>
+				</div>
+			)
+		}
+	}
+
+	// This can be merged into RecipeList
+	class EditRecipeModal extends React.Component {
+		constructor(props) {
+			super(props);
+			this.state = { nameValue: props.recipeName, ingredientValue: props.recipeIngredients, showModal: false };
+			this.handleNameChange = this.handleNameChange.bind(this);
+			this.handleIngredientChange = this.handleIngredientChange.bind(this);
+			this.close = this.close.bind(this);
+			this.open = this.open.bind(this);
+			this.editRecipeModalButton = this.editRecipeModalButton.bind(this);
+		}
+
+		handleNameChange(event) {
+			this.setState({nameValue: event.target.value})
+		}
+		handleIngredientChange(event) {
+			this.setState({ingredientValue: event.target.value})
+		}
+		close() {
+			this.setState({ showModal: false })
+		}
+		open() {
+			this.setState({ showModal: true })
+		}
+		editRecipeModalButton() {
+			return function(e) {
+				e.preventDefault();
+				this.close();
+				var recipe = {
+					id: slugify(document.getElementById("editRecipeName").value), 
+					name: document.getElementById("editRecipeName").value,
+					ingredients: document.getElementById("editRecipeIngredients").value
+				}
+				return this.props.editRecipeFunction(recipe);
+			}.bind(this);
+		}
+		render() {
+			return(
+				<div>
+					<Button onClick={this.open}>Edit</Button>
+					<Modal show={this.state.showModal} onHide={this.close}>
+						<Modal.Header closeButton>Edit Recipe</Modal.Header>
+						<Modal.Body>
+							<p><strong>Recipe Name</strong> <br />
+							<input type="text" id="editRecipeName" value={this.state.nameValue} onChange={this.handleNameChange} /></p>
+							<p><strong>Ingredients</strong> <br />
+							<input type="text" id="editRecipeIngredients" value={this.state.ingredientValue} onChange={this.handleIngredientChange} /></p>
+						</Modal.Body>
+						<Modal.Footer>
+							<Button onClick={this.editRecipeModalButton()}>Confirm Edit</Button>
+							<Button onClick={this.close}>Close</Button>
+						</Modal.Footer>
+					</Modal>
+				</div>
+				)
+		}
+	}
+
+	class RecipeIngredients extends React.Component{
+		render() {
+			var ingredients = this.props.ingredients.map(function(ingredient) {
+				return(
+					<ListGroupItem key={slugify(ingredient)}>{ingredient}</ListGroupItem>
+				)
+			})
+			return (
+				<ListGroup>
+					{ingredients}
+				</ListGroup>
+			)
+		}
+	}
+
+	// This can be merged into RecipeBox
+	var AddRecipeModal = React.createClass({
+		getInitialState() {
+			return { showModal: false };
+		},
+		close() {
+			this.setState({ showModal:false });
+		},
+		open() {
+			this.setState({ showModal: true });
+		},
+		addRecipeModalButton() {
+			return function(e) {
+				e.preventDefault();
+				this.close();
+				var recipe = {id: slugify(document.getElementById("recipeInput").value), name: document.getElementById("recipeInput").value, ingredients: document.getElementById("recipeIngredients").value}
+				return this.props.onAdd(recipe);
+			}.bind(this);
+		},
+		render() {
+			return(
+				<div>
+					<Button bsStyle="primary" onClick={this.open}>Add Recipe</Button>
+					<Modal show={this.state.showModal} onHide={this.close}>
+						<Modal.Header closeButton>
+							<Modal.Title>Add a recipe!</Modal.Title>
+						</Modal.Header>
+						<Modal.Body>
+							<p><strong>Recipe Name</strong> <br />
+							<input type="text" id="recipeInput" /></p>
+							<p><strong>Ingredients</strong> <br />
+							<input type="text" id="recipeIngredients" /></p>
+						</Modal.Body>
+						<Modal.Footer>
+							<Button onClick={this.addRecipeModalButton()}>Add Recipe To List</Button>
+							<Button onClick={this.close}>Close</Button>
+						</Modal.Footer>
+					</Modal>
+				</div>
+				)
+		}
+	})
+	ReactDOM.render(
+		<RecipeBox data={JSON.parse(localStorage.getItem('recipes'))} />,
+		document.getElementById('root')
+	)
+	</script>
+</body>
