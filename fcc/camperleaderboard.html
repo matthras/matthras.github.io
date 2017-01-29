@@ -1,5 +1,17 @@
 <head>
-	<link type="text/css" rel="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css">
+	<style>
+		body {
+		 background-color: #FFFFF0;
+		}
+
+		.avatar {
+			width: 40px;
+			max-height:40px;
+			border: 1px solid black;
+			border-radius: 2px;
+		}
+	</style>
 </head>
 <body>
 	<div id="root"></div>
@@ -17,7 +29,7 @@
 				return (
 					<tr key={index+1}>
 						<td>#{index+1}</td>
-						<td><img src={camper.img} /></td>
+						<td><img className="avatar" src={camper.img} /></td>
 						<td>{camper.username}</td>
 						<td>{camper.recent}</td>
 						<td>{camper.alltime}</td>
@@ -87,18 +99,21 @@
 
 	render() {
 		return(
-			<table>
-			<thead>
-				<tr>
-					<th>Ranking</th>
-					<th></th>
-					<th>Username</th>
-					<th><a href="#" onClick={this.recent}>Points in Past 30 Days</a></th>
-					<th><a href="#" onClick={this.alltime}>All Time</a></th>
-				</tr>
-			</thead>
-				<TableBody url={this.state.sort} />
-			</table>
+			<div className="container">
+			<h1>FCC Camper Leaderboard</h1>
+				<table>
+				<thead>
+					<tr>
+						<th>Ranking</th>
+						<th></th>
+						<th>Username</th>
+						<th><a href="#" onClick={this.recent}>Points in Past 30 Days</a></th>
+						<th><a href="#" onClick={this.alltime}>All Time</a></th>
+					</tr>
+				</thead>
+					<TableBody url={this.state.sort} />
+				</table>
+			</div>
 		)
 	}
 
