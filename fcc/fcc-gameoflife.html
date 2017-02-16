@@ -12,7 +12,7 @@
 		color: #cc99ff;
 	}
 
-	button:hover {
+	button:hover, button:active, button:focus {
 		border: 1px solid #6600cc;
 		color: #6600cc;
 	}
@@ -32,6 +32,14 @@
 		color: white;
 	}
 
+	h2, h3 {
+		color: #cc99ff;
+	}
+
+	svg {
+		display: inline-block;
+	}
+
 	.rect0 {
 		fill: black;
 		stroke: #6600cc;
@@ -39,7 +47,7 @@
 	}
 
 	.rect1 {
-		fill:	url(#fillGradient);
+		fill: url(#fillGradient);
 		stroke: #6600cc;
 		stroke-width:1px;
 	}
@@ -57,7 +65,6 @@
 	}
 	.divCenter {
 		text-align: center;
-		margin: auto auto;
 		color: #cc99ff;
 	}
 	</style>
@@ -91,9 +98,9 @@
 							<Pixels row={i} rowIndex={index} />
 						)
 				});
-			var viewbox = "0 0 "+this.props.width+" 500"
+			var viewbox = "0 0 "+this.props.width+" "+this.props.height
 		return (
-			<svg width={this.props.width} height="500" viewBox={viewbox}>
+			<svg width={this.props.width} height={this.props.height} viewBox={viewbox}>
 				<defs>
 						<radialGradient id="fillGradient">
 							<stop offset="0%" stopColor="#cc99ff" />
@@ -106,28 +113,70 @@
 	}
 	})
 
-	var App = React.createClass({
-		getInitialState() {
-			return {
+	class App extends React.Component {
+		constructor(props) {
+			super(props);
+			this.state = {
 				grid: [],
+				width: 500,
+				height: 500,
+				nCols: 50,
 				nRows: 50,
-				born: [2],
+				nGens: 0,
+				born: [3],
 				survives: [2,3]
-			};
-		},
-		generateInitialGrid() {
+			}
+			this.generateGrid = this.generateGrid.bind(this);
+			this.generateGridWithoutInput = this.generateGridWithoutInput.bind(this);
+			this.updateDimensions = this.updateDimensions.bind(this);
+			this.resetDimensions = this.resetDimensions.bind(this);
+			this.changeGridHeight = this.changeGridHeight.bind(this);
+			this.changeGridWidth = this.changeGridWidth.bind(this);
+			this.changeBorn = this.changeBorn.bind(this);
+			this.changeSurvives = this.changeSurvives.bind(this);
+			this.gameOfLife = this.gameOfLife.bind(this);
+			this.stopThisShit = this.stopThisShit.bind(this);
+		}
+		componentDidMount() {
+			this.setState({ nCols: Math.floor(document.getElementById('svgBox').offsetWidth/10), width: document.getElementById('svgBox').offsetWidth })
+			this.generateGrid(this.state.nRows, Math.floor(document.getElementById('svgBox').offsetWidth/10));
+			window.addEventListener("resize", this.updateDimensions);
+			window.addEventListener("resize", this.changeGridWidth);
+		}
+		componentWillUnmount() {
+			window.removeEventListener("resize", this.updateDimensions);
+			window.removeEventListener("resize", this.changeGridWidth);
+		}
+		updateDimensions() {
+			this.setState({ 
+				width: document.getElementById("svgBox").offsetWidth,
+				nCols: Math.floor(document.getElementById("svgBox").offsetWidth/10)
+			})
+			this.generateGrid(this.state.nRows, Math.floor(document.getElementById("svgBox").offsetWidth/10))
+		}
+		resetDimensions() {
+			this.setState({
+				height: 500,
+				nRows: 50,
+				width: document.getElementById("svgBox").offsetWidth,
+				nCols: Math.floor(document.getElementById("svgBox").offsetWidth/10)
+			})
+			this.generateGrid(50,Math.floor(document.getElementById("svgBox").offsetWidth/10))
+		}
+		generateGrid(rows, cols) {
 			var randomGrid = [];
-			for(var h=0; h<this.state.nRows; h++){
+			for(var h=0; h<rows; h++){
 				var row = [];
-				for(var w = 0; w<Math.floor((window.innerWidth*0.9)/10); w++){
+				for(var w = 0; w<cols; w++){
 					row.push(Math.floor(Math.random()*2));
 				}
 				randomGrid.push(row);
 			}
-			this.setState({grid: randomGrid})
-		},
-		generateGrid() {
+			this.setState({grid: randomGrid, nGens: 0});
+		}
+		generateGridWithoutInput() { // For some reason I can't put this.state.nRows/nCols as an input into the function above.
 			var randomGrid = [];
+			console.log(this.state.nRows)
 			for(var h=0; h<this.state.nRows; h++){
 				var row = [];
 				for(var w = 0; w<this.state.nCols; w++){
@@ -135,92 +184,84 @@
 				}
 				randomGrid.push(row);
 			}
-			this.setState({grid: randomGrid});
-		},
-		updateDimensions() {
-			this.setState({ 
-				width: (window.innerWidth*0.9),
-				height: window.innerHeight || document.body.clientHeight
-				})
-			this.setState({ nCols: Math.floor((window.innerWidth*0.9)/10) })
-		},
-		componentWillMount() {
-			this.updateDimensions();
-			this.generateInitialGrid();
-		},
-		componentDidMount() {
-			window.addEventListener("resize", this.updateDimensions);
-			window.addEventListener("resize", this.changeGridWidth);
-		},
-		componentWillUnmount() {
-			window.removeEventListener("resize", this.updateDimensions);
-		},
+			this.setState({grid: randomGrid, nGens: 0});
+		}		
 		changeGridHeight(event) {
-			this.setState({nRows: event.target.value});
-			this.generateGrid();
-		},
+			this.setState({nRows: event.target.value, height: event.target.value*10});
+			this.generateGrid(event.target.value, this.state.nCols);
+		}
 		changeGridWidth(event) {
-			this.setState({nCols: event.target.value});
-			this.generateGrid();
-		},
+			this.setState({nCols: event.target.value, width: event.target.value*10});
+			this.generateGrid(this.state.nRows, event.target.value);
+		}
 		changeBorn(event) {
 			this.setState({born: event.target.value});
-		},
+		}
 		changeSurvives(event) {
 			this.setState({survives: event.target.value});
-		},
+		}
 		gameOfLife() {
 		var startThisShit = setInterval( () => {
+		  var newGen = this.state.nGens++;
 		  var oldGrid = this.state.grid;
 		  var newGrid = [];
 		  // Iterating through grid
 		  for(var i=0; i<this.state.nRows; i++) {
-		    var row = [];
-		    for(var j=0; j<this.state.nCols; j++) {
-		      var iRows = [i-1, i, i+1];
-		      var jCols = [j-1, j, j+1];
-		      var sum = 0;
-		      // Iterating through surrounding pixels/neighbours
-		      for(var r=0; r<iRows.length; r++) {
-		        for(var c=0; c<jCols.length; c++) {
-		          if(iRows[r] < 0 || jCols[c] < 0 || iRows[r] >= this.state.nRows || jCols[c] >= this.state.nCols) {
-		            continue;
-		          } else {
-		          sum += oldGrid[iRows[r]][jCols[c]];
-		          }
-		        }
-		      }
-		      // If the pixel being investigated is live, subtract 1
-		      if(oldGrid[i][j]===1) {
-		        sum -= 1
-		      }
-		      if(oldGrid[i][j]===0){
-		        // Any dead cell with exactly 3 live neighbours becomes a live cell
-		        if(sum==3){
-		          row.push(1);
-		        } else {
-		          row.push(0);
-		        }
-		      // Live cells
-		      } else {
-		        // Any live cell with fewer than two live neighbours dies
-		        // Any live cell with more than 3 live neighbours dies
-		        if(sum < 2 || sum > 3) {
-		          row.push(0);
-		        // Any live cell with 2 or 3 live neighbours lives
-		        } else if (sum === 2 || sum === 3) {
-		          row.push(1);
-		        }
-		      }
-		    }
-		    newGrid.push(row)
-		  }
+			var row = [];
+			for(var j=0; j<this.state.nCols; j++) {
+				var iRows = [i-1, i, i+1];
+				var jCols = [j-1, j, j+1];
+				var sum = 0;
+				// Iterating through surrounding pixels/neighbours
+				for(var r=0; r<iRows.length; r++) {
+					for(var c=0; c<jCols.length; c++) {
+						if(iRows[r] < 0 || jCols[c] < 0 || iRows[r] >= this.state.nRows || jCols[c] >= this.state.jCols) {
+						continue;
+						} else {
+						sum += oldGrid[iRows[r]][jCols[c]];
+						}
+					}
+				}
+				// If the pixel being investigated is live, subtract 1
+				if(oldGrid[i][j]===1) {
+				sum -= 1
+				}
+				// Any dead cell with exactly 3 live neighbours becomes a live cell
+				if(oldGrid[i][j]===0){
+				var wasACellBorn = false;
+				for(var b=0; b < this.state.born.length; b++) {
+					if(sum===this.state.born[b]){
+					row.push(1);
+					wasACellBorn = true;
+					break;
+					}
+				}
+				if(!wasACellBorn) {
+					row.push(0);
+				}
+				// Live cells
+				} else {
+				var didTheCellDie = false; 
+				for(var s=0; s< this.state.survives.length; s++) {
+					if(sum===this.state.survives[s]){
+					row.push(1);
+					didTheCellDie = true;
+					break;
+					}
+				}
+				if(!didTheCellDie){
+					row.push(0);
+				}
+				}
+			}
+			newGrid.push(row)
+			}
 			this.setState({grid:newGrid, intervalId: startThisShit})
-		}, 100 )},
+		}, 100 )}
 		stopThisShit() {
 			clearInterval(this.state.intervalId)
-		},
-		render: function() {
+		}
+		render() {
 			return(
 				<div className="container">
 				<div className="coverBox">
@@ -229,38 +270,37 @@
 					</div>
 					<hr /> 
 					<div className="row">
-						<div className="two columns divCenter">
-							Number of Rows: <input type="number" id="nrows" defaultValue={this.state.nRows} onChange={this.changeGridHeight} min="4" max={this.state.nRows} />
-						</div>
-						<div className="two columns divCenter">
-							Number of Columns: <input type="number" id="ncols" defaultValue={this.state.nCols} onChange={this.changeGridWidth} min="4" />
+						<div className="four columns divCenter">
+							<h3>Dimensions</h3>
+							Number of Rows: <input type="number" id="nrows" value={this.state.nRows} onChange={this.changeGridHeight} min="4" /> <br />
+							Number of Columns: <input type="number" id="ncols" value={this.state.nCols} onChange={this.changeGridWidth} min="4" /> <br />
+							<button onClick={this.resetDimensions}>Reset Dimensions</button>
 						</div>
 						<div className="four columns divCenter">
-							<button onClick={this.generateGrid}>Generate</button>
+							<h3>Generation: {this.state.nGens}</h3> <br />
+							<button id="resetButton" onClick={this.generateGridWithoutInput}>Reset</button>
 							<button onClick={this.gameOfLife}>Start</button>
 							<button onClick={this.stopThisShit}>Stop</button>
 						</div>
-						<div className="two columns divCenter">
-							A cell is born if it has <input type="text" defaultValue={this.state.born} /> neighbours.
-						</div>
-						<div className="two columns divCenter">
-							A cell survives if it has <input type="text" defaultValue={this.state.survives} /> neighbours.
+						<div className="four columns divCenter">
+							<h3>Born/Survival Rate</h3>
+							A cell is born if it has <input type="text" defaultValue={this.state.born} onChange={this.changeBorn} /> neighbours. <br />
+							A cell survives if it has <input type="text" defaultValue={this.state.survives} onChange={this.changeSurvives} /> neighbours. <br />
 						</div>
 					</div>
 					<hr />
-					<div className="row divCenter">
-						<Grid data={this.state.grid} width={this.state.width}/>
+					<div className="row divCenter" id="svgBox" ref="svgBox">
+						<Grid data={this.state.grid} width={this.state.width} height={this.state.height}/>
 					</div>
 				</div>
 				</div>
 			)
 		}
-	})
+	}
 
 	ReactDOM.render(
 		<App />,
 		document.getElementById('root')
 	)
-
 	</script>
 </body>
