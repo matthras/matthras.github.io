@@ -68,6 +68,7 @@
                     <p class="result" id="q3result"><span style="color:red; font-weight:bold;">Incorrect</span></p> <br />
                     <button class="btn btn-success" onclick="showResults();">How did I do?</button>
                     <button class="btn btn-danger" onclick="clearAnswers();">Clear my answers!</button>
+                    <button class="btn btn-primary" onclick="resetQuiz();">Reset quiz</button>
                 </div>
             </div>
         </div>
@@ -105,10 +106,10 @@
         // Checks if Q2 is correct. Reusable for questions that have an input type='number' text box.
         var checkQ2 = function() {
             if(document.getElementById('q2').value == 35000){
-                document.getElementById('q2result').innerHTML= correct;
+                document.getElementById('q2result').innerHTML = correct;
             }
         }
-        // Checks if Q3 is correct. Function can be generalised/improved in order to accomodate for questions w/ checkboxes.
+        // Checks if Q3 is correct. Function can be generalised/improved in order to accommodate for questions w/ checkboxes.
         var checkQ3 = function() {
             var q3List = document.getElementsByName('q3')
             if(q3List[0].checked && q3List[1].checked && q3List[2].checked && q3List[3].checked && !q3List[4].checked) {
@@ -128,18 +129,18 @@
 
         // Button Event: Checks if the questions are correct and then reveals 'Correct' or 'Incorrect' underneath each question.        
         var showResults = function() {
-            // If all questions answered, show results, else alert.
+            // If all questions answered, show results, else prompt user to double check.
             if(checkIfAnswered()) {
                 checkQ1();
                 checkQ2();
-                checkQ3()
+                checkQ3();
                 revealResults();
             } else {
                 var unanswered = confirm("Questions have been left unanswered! Do you want to proceed?");
                 if(unanswered) {
                     checkQ1();
                     checkQ2();
-                    checkQ3()
+                    checkQ3();
                     revealResults();
                 }
             }   
@@ -158,6 +159,14 @@
             }
         }
         
+        var resetQuiz = function() {
+            clearAnswers();
+            var paragraphs = document.getElementsByClassName('result');
+            for(var i=0; i<paragraphs.length; i++) {
+                paragraphs[i].style.display = "none";
+            }
+            document.getElementById('thanks').style.display = 'none';
+        }
         
     </script>
 
