@@ -90,13 +90,43 @@
                 return false;
             }
         }
+
+        var correct = '<span style="color:green; font-weight:bold;">Correct!</span>'
+        // Checks if Q1 is correct. Reusable for any question that has radio button options.
+        var checkQ1 = function() {
+            var q1List = document.getElementsByName('q1');
+            for(var q=0; q<q1List.length; q++) {
+                if(q1List[q].checked && q1List[q].value == 90) {
+                    document.getElementById('q1result').innerHTML= correct;
+                    break;
+                }
+            } 
+        }
+        // Checks if Q2 is correct. Reusable for questions that have an input type='number' text box.
+        var checkQ2 = function() {
+            if(document.getElementById('q2').value == 35000){
+                document.getElementById('q2result').innerHTML= correct;
+            }
+        }
+        // Checks if Q3 is correct. Function can be generalised/improved in order to accomodate for questions w/ checkboxes.
+        var checkQ3 = function() {
+            var q3List = document.getElementsByName('q3')
+            if(q3List[0].checked && q3List[1].checked && q3List[2].checked && q3List[3].checked && !q3List[4].checked) {
+                document.getElementById('q3result').innerHTML= correct;
+            }
+        }
+
+        // Reveals the 'Correct'/'Incorrect' text under each question.
         var revealResults = function() {
             var paragraphs = document.getElementsByClassName('result');
             for(var i=0; i<paragraphs.length; i++) {
                 paragraphs[i].style.display = "inline-block";
             }
             document.getElementById('thanks').style.display = 'inline-block';
-        }        
+        }
+
+
+        // Button Event: Checks if the questions are correct and then reveals 'Correct' or 'Incorrect' underneath each question.        
         var showResults = function() {
             // If all questions answered, show results, else alert.
             if(checkIfAnswered()) {
@@ -114,6 +144,8 @@
                 }
             }   
         }
+
+        // Clears all checkboxes, radio buttons, and resets number boxes to zero.
         var clearAnswers = function() {
             var q1List =  document.getElementsByName('q1');
             for(var q=0; q<q1List.length; q++) {
@@ -125,27 +157,7 @@
                 q3List[r].checked = false;
             }
         }
-        var correct = '<span style="color:green; font-weight:bold;">Correct!</span>'
-        var checkQ1 = function() {
-            var q1List = document.getElementsByName('q1');
-            for(var q=0; q<q1List.length; q++) {
-                if(q1List[q].checked && q1List[q].value == 90) {
-                    document.getElementById('q1result').innerHTML= correct;
-                    break;
-                }
-            } 
-        }
-        var checkQ2 = function() {
-            if(document.getElementById('q2').value == 35000){
-                document.getElementById('q2result').innerHTML= correct;
-            }
-        }
-        var checkQ3 = function() {
-            var q3List = document.getElementsByName('q3')
-            if(q3List[0].checked && q3List[1].checked && q3List[2].checked && q3List[3].checked && !q3List[4].checked) {
-                document.getElementById('q3result').innerHTML= correct;
-            }
-        }
+        
         
     </script>
 
