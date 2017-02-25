@@ -1,0 +1,152 @@
+<head>
+    <title>Matt's Malicious And Utterly Arbitrary Maths Quiz</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css"></link>
+    <style>
+        body {
+            background-color: #000003;
+        }
+        .block {
+            margin: 20px;
+        }
+
+        .block:before {
+            content: '';
+            display: inline-block;
+            height: 100%; 
+            vertical-align: middle;
+            margin-right: -0.25em; 
+        }
+        .centered {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .text-center {
+            text-align:center;
+        }
+
+        .result {
+            display:none;
+        }
+
+        #thanks {
+            display:none;
+        }   
+    </style>
+</head>
+<body>
+    <div class="row block">
+    <div class="col-xs-12 col-md-6 col-md-offset-3 centered">    
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h1 class="panel-title text-center">Matt's Malicious And Utterly Arbitrary Maths Quiz</h1>
+            </div>
+            <div class="panel-body">
+                <div id="thanks">Thanks for trying! I tried making a version in React using a Modal but 4-5 hours in realised I was running into way too many problems from both a UI and programming standpoint. Nevertheless you can view it <a href="failedmathspathways.html">here</a>!</div>
+                <div id="questions">
+                    <h3>Question 1</h3>
+                    <p>Justin is looking over the data for his venture MathsPathways and is attempting to estimate how many clients he'll reach in the following year. The graph of his progress can be seen below. 
+                    <img src='mathpathwaysq1.png' style="width:100%;"/>    
+                    <p>What would be the best estimate (assuming a linear growth) as to how many clients Justin will receive in 2017?</p>
+                    <input type="radio" name="q1" value="10"> 10<br />
+                    <input type="radio" name="q1" value="40"> 40<br />
+                    <input type="radio" name="q1" value="90"> 90<br />
+                    <input type="radio" name="q1" value="130"> 130<br />
+                    <input type="radio" name="q1" value="200"> 200<br />
+                    <p class="result" id="q1result"><span style="color:red; font-weight:bold;">Incorrect</span></p>
+                    <h3>Question 2</h3>
+                    <p>Justin's friend Richard is attempting to determine the cost of hosting MathsPathway using Amathazon Web Services. If Amathazon Web Services charges a $10,000 upfront fee with $5,000 a year, how much would it cost to host MathsPathway for five years?</p>
+                    <input id="q2" type="number" defaultValue='0' min='0' value='0'> <br />
+                    <p class="result" id="q2result"><span style="color:red; font-weight:bold;">Incorrect</span></p>
+                    <h3>Question 3 </h3>
+                    <p>Michela was recruited by Justin a year ago to produce content for MathsPathways. On one working day (7 hours) she is required to write at least 40 questions. Check all the following viable combinations of questions that Michela can write in a day.</p>
+                    <input type="checkbox" name="q3" value="5hq"> 5 high-quality questions per hour all day<br />
+                    <input type="checkbox" name="q3" value="5hq8mq"> 5 high-quality questions per hour for 2 hours, 8 medium-quality questions per hour for 4 hours<br />
+                    <input type="checkbox" name="q3" value="8mq"> 8 medium-quality questions per hour for 5 hours <br />
+                    <input type="checkbox" name="q3" value="8mq12lq"> 8 medium-quality questions per hour for 3 hours and 12 low-quality questions per hour for 2 hours<br />
+                    <input type="checkbox" name="q3" value="12lq"> 12 low-quality questions per hour for 3 hours<br />
+                    <p class="result" id="q3result"><span style="color:red; font-weight:bold;">Incorrect</span></p> <br />
+                    <button class="btn btn-success" onclick="showResults();">How did I do?</button>
+                    <button class="btn btn-danger" onclick="clearAnswers();">Clear my answers!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script>
+        // Checks if all questions have been answered. Excludes Q3 to allow for questions where no checkboxes need to be marked.
+        var checkIfAnswered = function() {
+            // Check Q1
+            var q1NodeList = document.getElementsByName('q1');
+            var q1Answered = false;
+            for(var n=0; n<q1NodeList.length; n++) {
+                if(q1NodeList[n].checked === true){
+                    q1Answered = true;
+                }
+            }
+            if(q1Answered && document.getElementById('q2').value != 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        var revealResults = function() {
+            var paragraphs = document.getElementsByClassName('result');
+            for(var i=0; i<paragraphs.length; i++) {
+                paragraphs[i].style.display = "inline-block";
+            }
+            document.getElementById('thanks').style.display = 'inline-block';
+        }        
+        var showResults = function() {
+            // If all questions answered, show results, else alert.
+            if(checkIfAnswered()) {
+                checkQ1();
+                checkQ2();
+                checkQ3()
+                revealResults();
+            } else {
+                var unanswered = confirm("Questions have been left unanswered! Do you want to proceed?");
+                if(unanswered) {
+                    checkQ1();
+                    checkQ2();
+                    checkQ3()
+                    revealResults();
+                }
+            }   
+        }
+        var clearAnswers = function() {
+            var q1List =  document.getElementsByName('q1');
+            for(var q=0; q<q1List.length; q++) {
+                q1List[q].checked = false;
+            }
+            document.getElementById('q2').value = 0;
+            var q3List = document.getElementsByName('q3')
+            for(var r=0; r<q3List.length; r++){
+                q3List[r].checked = false;
+            }
+        }
+        var correct = '<span style="color:green; font-weight:bold;">Correct!</span>'
+        var checkQ1 = function() {
+            var q1List = document.getElementsByName('q1');
+            for(var q=0; q<q1List.length; q++) {
+                if(q1List[q].checked && q1List[q].value == 90) {
+                    document.getElementById('q1result').innerHTML= correct;
+                    break;
+                }
+            } 
+        }
+        var checkQ2 = function() {
+            if(document.getElementById('q2').value == 35000){
+                document.getElementById('q2result').innerHTML= correct;
+            }
+        }
+        var checkQ3 = function() {
+            var q3List = document.getElementsByName('q3')
+            if(q3List[0].checked && q3List[1].checked && q3List[2].checked && q3List[3].checked && !q3List[4].checked) {
+                document.getElementById('q3result').innerHTML= correct;
+            }
+        }
+        
+    </script>
+
+</body>

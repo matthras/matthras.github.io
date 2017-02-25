@@ -1,0 +1,191 @@
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css"></link>
+    <style>
+        body {
+            background-color: #000003;
+        }
+
+        .absolute-center {
+            margin: auto;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+        }
+
+        .absolute-center.responsive {
+            width: 50%; 
+            height: 50%;
+            min-width: 500px;
+            max-width: 1000px;
+            padding: 40px;
+            }
+        }
+
+        .text-center {
+            text-align:center;
+        }       
+    </style>
+</head>
+<body>
+	<div id="root"></div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-bootstrap/0.30.7/react-bootstrap.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.18.1/babel.min.js"></script>
+	<script type="text/babel">
+        var Modal = ReactBootstrap.Modal;
+        var Grid = ReactBootstrap.Grid;
+        var Col = ReactBootstrap.Col;
+        var Row = ReactBootstrap.Row;
+        var Panel = ReactBootstrap.Panel;
+        var Button = ReactBootstrap.Button;
+        
+        function WelcomePanel(props) {
+            return(
+                <div>
+                    Welcome!
+                </div>
+            )
+        }
+
+        function ProgressPanel(props) {
+            return(
+                <div>
+                    Quiz is in progress!
+                </div>
+            )
+        }
+
+        function ResultsPanel(props) {
+            return(
+                <div>
+                    You have completed the quiz!
+                </div>
+            )
+        }
+
+        function MainPanel(props) {
+            const cQuestion = props.cQuestion;
+            const nQuestions = props.nQuestions;
+            const allQuestionsComplete = props.allQuestionsComplete;
+            if(allQuestionsComplete) {
+                return(
+                    <ResultsPanel />
+                )
+            } else {
+                return(
+                    <WelcomePanel />
+                )
+            }
+        }
+
+        class App extends React.Component {
+            constructor(props) {
+                super(props)
+                this.state = {
+                    showModal: false,
+                    // Note: Most of these initial state variables can be pulled from a database, but is obviously manually coded for the purposes of this exercise.
+                    currentQuestion: 1,
+                    numberofQuestions: 3,
+                    allQuestionsComplete: false,
+                    questionList: {
+                        '1': {
+                            questionText: "Justin is looking over the data for his current venture and is attempting to estimate how many clients he'll reach in the following year. The graph of his progress can be seen below. What would be the best estimate (assuming a linear growth) as to how many clients Justin will receive in 2017?",
+                            answers: ["10", "40", "90", "130", "200"],
+                            assets: ['q1graph.png'],
+                            correctAnswer: "C"
+                        },
+                        '2': {
+                            questionText: "Justin's friend Richard is grappling with the technology costs for Justin's venture and is comparing pricing data between two server providers. Amathaszon Web Services charges X1 initial cost with X2 per year, and Decimal Ocean charges an upfront cost of Y1 with Y2 per year. Which of these services will cost more after three years?",
+                            answers: ["Amathsazon Web Services", "Decimal Ocean", "Both will cost the same", 'Neither']
+                        },
+                        '3': {
+                            questionText: "Michela was recruited by Justin and Richard a year ago and is tasked with writing maths questions for short quizzes like these. In a single hour, Michela can either write 5 high-quality questions or 10 medium-quality questions. ",
+                            answers: []
+                        }
+                    },
+                    studentAnswers: [0,0,0],
+                    correctAnswers: ["90",2,4]
+                }
+                this.questionAnswered = this.questionAnswered.bind(this);
+                this.closeModal = this.closeModal.bind(this);
+                this.openModal = this.openModal.bind(this);
+                this.previousQuestion = this.previousQuestion.bind(this);
+            };
+            openModal() {
+                this.setState({showModal:true});
+            };
+            closeModal() {
+                this.setState({showModal: false});
+            };
+            // If all questions have been answered, close the Modal and activate the results screen. Else increment question number by 1.
+            questionAnswered() {
+                if(this.state.currentQuestion === this.state.numberofQuestions) {
+                    this.setState({ allQuestionsComplete: true, showModal: false });
+                } else {
+                    // Record answer
+                    var currentStudentAnswers = this.state.studentAnswers;
+                    var questionName = 'input[name='+'"q'+this.state.currentQuestion.toString()+'"]'
+                    currentStudentAnswers[this.state.currentQuestion-1] = document.querySelector(questionName).value;
+                    // Increment question number by 1 and update studentAnswers
+                    this.setState({ 
+                        currentQuestion: this.state.currentQuestion + 1, 
+                        studentAnswers: currentStudentAnswers
+                    });
+                }
+            }
+            previousQuestion() {
+                if(this.state.currentQuestion !== 1) {
+                    this.setState({ currentQuestion: this.state.currentQuestion-1 });
+                }
+            }
+            render() {
+                var questionNumber = 'q'.concat(this.state.currentQuestion.toString());
+                var answerList = this.state.questionList[this.state.currentQuestion].answers.map( function(a) { 
+                    return(
+                        <div>
+                            <input type="radio" name={questionNumber}/> {a}<br />
+                        </div>
+                        ) 
+                    });
+                
+                return(
+                    <div>
+                        <Grid>
+                            <Row>
+                                <div className="absolute-center responsive">
+                                <Col xs={12} md={8} mdOffset={2}>
+                                    <Panel className="text-center" header="Welcome to Matt's Maths Quiz!" bsStyle="primary">
+                                        <MainPanel allQuestionsComplete={this.state.allQuestionsComplete} />
+                                        <Button bsStyle="primary" onClick={this.openModal}>Click me to get started!</Button>
+                                    </Panel>
+                                </Col>
+                                </div>
+                            </Row>
+                        </Grid>
+                        <Modal show={this.state.showModal} onHide={this.close}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>Question {this.state.currentQuestion}</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <p>{this.state.questionList[this.state.currentQuestion].questionText}</p>
+                                <form>
+                                    {answerList}
+                                </form>
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button onClick={this.previousQuestion} bsStyle="danger">Back</Button>
+                                <Button onClick={this.questionAnswered} bsStyle="success">Submit</Button>
+                                <Button onClick={this.closeModal} bsStyle="info">Close</Button>
+                            </Modal.Footer>
+                        </Modal>
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(
+            <App />,
+            document.getElementById('root')
+        )
+    </script>
+</body>
