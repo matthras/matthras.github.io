@@ -23,5 +23,11 @@ nav {
       text-align: center;
       padding: 14px 16px;
       text-decoration: none; }
+      nav ul a:hover {
+        background-color: #666; }
+
+header {
+  background-color: black;
+  text-align: center; }
 
 /*# sourceMappingURL=app.css.map */
