@@ -1,220 +1,36 @@
-<!doctype html>
-<html class="no-js" lang="en" dir="ltr">
-  <head>
+<html lang="en">
 
+<head>
     <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" type="image/png" href="favicon.png">
-    <title>Matthew Mack's Digital Portfolio</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" media="screen" title="no title" charset="utf-8">
-    <link rel="stylesheet" href="css/foundation.css">
-    <link rel="stylesheet" href="css/app.css">
-  </head>
-  <body>
-  <div data-sticky-container>
-    <div class="title-bar sticky" data-sticky data-options="marginTop:0;" style="width:100%" data-top-anchor="1">
-      <div class="small-12 medium-4 columns">
-        <ul class='horizontal menu'>
-          <li>Matthew Mack's Digital Portfolio</li>
-        </ul>
-      </div>
-      <div class='small-12 medium-4 columns'>
-        <ul class='horizontal menu' data-magellan>
-          <li><a href="#webdev">Web Dev.</a></li>
-          <li><a href="#mathapps">Math Apps</a></li>
-          <li><a href="#videos">Video Projects</a></li>
-      </div>
-      <div class="small-12 medium-4 columns title-bar-right">
-        <span class="title-bar-title">mm@matthewmack.com.au</span>
-      </div>
-    </div>
-  </div>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/base-min.css">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/grids-min.css">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/grids-responsive-old-ie-min.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+    <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/base-min.css">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/grids-min.css">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/grids-responsive-min.css">
+    <!--<![endif]-->
+    <link rel="stylesheet" href="app.css">
+</head>
 
-    <!-- INTRO PARAGRAPH -->
-    	<div class="row whitebg">
-    	<div class="small-12 medium-10 medium-offset-1 columns text-center">
-    		Matthew Mack is a mathematician, cellist, teacher, web developer and content producer who currently teaches undergraduate mathematics at three tertiary institutions, and is currently teaching himself full-stack web development. This page is intended to be a collection of links to all digital content produced thus far.
-    	</div>
-    	</div>
-
-    <!-- WEB DEV PROJECTS -->
-    <div class="row whitebg0">
-    	<div class="small-12 medium-10 medium-offset-1 columns" id='webdev' data-magellan-target='webdev'>
-    	<h2 class='text-center'>Web Development Projects</h2>
-      <hr>
-      <div class="row">
-      <h3>FreeCodeCamp Projects</h3>
-    		<div class="small-12 medium-4 columns">
-          <h4><a href='http://matthras.github.io'>Portfolio Page</a></h4>
-            <p>A one-page portfolio hosted on Github Pages; an aggregation of links to all digital content produced thus far.<br /> Frameworks: Foundation </p>
+<body>
+    <div class="pure-g">
+        <div class="pure-u-md-7-24"></div>
+        <div class="pure-u-1 pure-u-md-10-24">
+            <nav>
+                <ul>
+                    <li><a href="#webdev">Web Dev</a></li>
+                    <li><a href="#maths">Maths</a></li>
+                    <li><a href="#videos">Videos</a></li>
+                </ul>
+            </nav>
         </div>
-      	<div class="small-12 medium-4 columns">
-          <h4>Maths Joke Machine</h4>
-            <p>Supplies a random maths joke upon the click of a button. <br />
-            <a href='http://codepen.io/matthras/full/obNaxg/'>CodePen version</a> - created before the requirements were changed (it now requires an option to have users Tweet the joke). <br/>
-            I hope to work on a version that uses Google Sheets as its database. If all goes well it'll also allow users to submit jokes to be included.</p>
-      	</div>
-        <div class='small-12 medium-4 columns'>
-        </div>
-      </div>
-        <div class="row">
-        <h3>Other Web Dev. Work</h3>
-          <div class="small-12 medium-6 columns">
-            <h4>Wordpress Websites</h4>
-              <ul>
-                <li> Personal Website: http://matthewmack.com.au <br /> The bulk of my web dev. work has been mostly done with Wordpress since my clients tend to be individual professionals or small businesses who simply needed a website to represent their business or personal brand, but also wanted to edit the content themselves. Through this work I built on my existing HTML knowledge and learnt basic CSS and PHP.</li>
-              </ul>
-          </div>
-          <div class="small-12 medium-6 columns">
-            <h4><a href="https://oaktree.org/annualreport2015">Oaktree 2015 Annual Report</a></h4>
-              <p>The Oaktree Foundation is a volunteer driven non-profit organisation that aims fundraise and raise awareness for world poverty through initiatives such as Live Below The Line. I volunteered for them in 2015-2016 firstly as a data analyst, then as a web developer. <br />
-              The Oaktree website is built using NationBuilder which utilises Liquid as a templating language. It took a while to get my head around NationBuilder's propreity system and create a custom template upon which to present Oaktree's Annual Report.</p>
-          </div>
-        </div>
-        <div class="row">
-          <div class='small-12 medium-6 columns'>
-            <h3>Lightning Talks (reveal.js Slides)</h3>
-            <p>Since <a href='https://www.facebook.com/groups/free.code.camp.Melbourne'>FreeCodeCamp Melbourne</a> was established, I stepped up to give 'short', 5-10 minute talks for the benefit of its members. For some of these talks, slides were prepared using reveal.js and are therefore accessible online.</p> 
-            <ul>
-              <li><a href='talks/d3intro/index.html'>Intro To D3</a></li>
-              <li>Getting Started with OBS Studio for Recording Videos</li>
-              <li><a href='talks/BigO/index.html'>Algorithmic Complexity and Big O</a></li> 
-            </ul>
-          </div>
-          <div class='small-12 medium-6 columns'>
-        </div>
-	    </div>
-	   </div>
-     </div>
-
-     <!-- MATH APPS -->
-    <div class="row whitebg">
-      <!-- INTRO -->
-      <div class="small-12 medium-10 medium-offset-1 columns"  id='mathapps' data-magellan-target='mathapps'>
-        <h2 class="text-center">Interactive Math Applications</h2>
-        <hr>
-        <p class='text-center'>One of my initial motivations in learning Javascript was to develop interactive maths web apps that allow students to explore mathematical theories and ideas.</p>
-        <div class='row'>
-          <div class='small-12 medium-6 columns'>
-            <h4>Javascript Apps</h4>
-          </div>
-          <div class='small-12 medium-6 columns'>
-            <h4>GeoGebra Apps</h4>
-          </div>
-        </div>
+        <div class="pure-u-md-7-24"></div>
     </div>
-    </div>
-
-    <!-- Video Projects -->
-    <div class="row whitebg0">
-      <div class="small-12 medium-10 medium-offset-1 columns"  id='videos' data-magellan-target='videos'>
-        <h2 class='text-center'>Video Projects</h2>
-        <hr>
-        <p class='text-center'>Back in high school I used to make vlogs using an old tape camcorder, and have always enjoyed playing PC games. It was only natural for me to combine the two and emulate a number of YouTubers that I watch/listen to on a regular basis. This hobby is also a platform for me to teach myself media production skills that can be applied to other career areas, such as producing screencasts/educational videos.</p>
-        <div class='row'>
-          <div class='small-12 medium-6 columns'>
-            <h4><a href='https://www.youtube.com/channel/UCct04Lav3JdufxngZCgPwDQ'>Let's Play YouTube Channel</a></h4>
-            <ul>
-              <li><strong>Matt Plays</strong> - episodic let's play videos of games that I personally am interested in and enjoy playing.<br />
-              Completed Series: <a href='https://www.youtube.com/playlist?list=PLwoKk2k6m2FxXgjY7oeWYLuQa-vUWuhfY'>Darkest Dungeon</a>, <a href='https://www.youtube.com/playlist?list=PLwoKk2k6m2FwfbyNnpNEh2t2Ehc3a99hK'>Mini Metro</a></li>
-              <li><strong>Matt Shows Off</strong> - a review series where I showcase games that I've personally enjoyed, but typically do not produce let's play videos for. I aim for short (5-10 minute) but edited videos and typically prepare a transcript which I post along with the video itself.<br />
-              Examples: <a href='https://www.youtube.com/watch?v=HlpOpOMgZuM'>Orwell</a>, <a href='https://www.youtube.com/watch?v=4-yOlQdGEPw'>Metronomicon</a></li>
-              <li><strong>Matt Talks</strong> - a discussion series where I'll either reflect on a past gaming experience or discuss some aspect of games e.g. game design, interpretations.</li>
-          </div>
-          <div class='small-12 medium-6 columns'>
-            <h4>Educational Videos</h4>
-
-          </div>
-      </div>
-    </div>
-<div data-sticky-container>
-  <div class='sticky' data-sticky data-stick-to='bottom' data-margin-bottom='0' style='width:100%'>
-    <div class='row bottom-bar' style='background-color:black; color:white;'>
-      <div class='small-12 medium-8 medium-offset-2 columns text-center'>
-        <a href='http://twitter.com/matthras'><i class='fa fa-twitter'></i></a>
-        <a href='http://github.com/matthras'><i class='fa fa-skype'></i></a>
-        <a href='https://www.youtube.com/channel/UCct04Lav3JdufxngZCgPwDQ'><i class='fa fa-youtube'></i></a>
-        <a href='https://au.linkedin.com/in/matthewypmack'><i class='fa fa-linkedin'></i></a>
-      </div>
-    </div>
-  </div>
-</div>
-
-  <!-- <div class="small-12 medium-3 columns" id="leftmenu">
-              <ul class="menu vertical" data-magellan> <!-- Need to find out how to shrink this to hamburger menu when on mobile
-                <li><a href="#webdev">Web Dev.</a></li>
-                <li><a href="#mathapps">Math Apps</a></li>
-                <li><a href="#videos">Video Projects</a></li>
-                <!--<li><a href="#third">Third Arrival</a></li>
-              </ul>
-              <p>Twitter: <a href="https://twitter.com/matthras">@matthras</a> <br />
-              Github: matthras </p>
-
-          </div> -->
-
-        <!-- Content Section
-          <div class="small-12 medium-10 medium-offset-1 columns" id="content" style="background-color:#AAA; background-opacity:0.5;">
-            <div class="sections" style="margin-top:1em;">
-            <section id="webdev" data-magellan-target="webdev">
-              <h2>Web Development Projects</h2>
-              <div class="row">
-              	<div class="small-12 medium-6 columns">
-	              <h3>FreeCodeCamp Projects</h3>
-	              <ul>
-	                <li> Portfolio Page - this website!
-	                <ul>
-	                	<li>CSS: <a href="foundation.zurb.com/">Zurb Foundation</a>.</li>
-	                	<li>Hosted on Github Pages.</li>
-	                	<li><a href="https://github.com/matthras/matthras.github.io">Written from scratch - repo link.</a></li>
-	                </ul>
-	              </ul>
-	             </div>
-	             <div class="small-12 medium-6 columns">
-	              <h3>Other Web Dev. Work</h3>
-	              <ul>
-	                <li> Personal Website: http://matthewmack.com.au <br /> The bulk of my web dev. work has been mostly done with Wordpress since my clients tend to be individual professionals or small businesses who simply needed a website to represent their business or personal brand, but also wanted to edit the content themselves. Through this work I built on my existing HTML knowledge and learnt basic CSS and PHP.</li>
-	              </ul>
-	             </div>
-            </section>
-            <hr>
-            <section id="mathapps" data-magellan-target="mathapps">
-              <h2>Math Apps</h2>
-              <p>I'm interested in developing interactive maths applications that allow students to explore mathematical theories and ideas.</p>
-              <div class="row">
-              	<div class="small-12 medium-6 columns">
-	              <h3>Javascript</h3>
-	              <ul>
-	                <li>Sequences &amp; Series - Students often have trouble differentiating between sequences and series, as well as understanding the notion of limits and convergence.</li>
-	                <li>Euclidean Algorithm Visualiser</li>
-	              </ul>
-	            </div>
-	            <div class="small-12 medium-6 columns">
-	              <h3>GeoGebra</h3>
-	            </div>
-            </section>
-            <hr>
-
-            <section id="videos" data-magellan-target="videos">
-              <h2>Video Projects</h2>
-              <h3>Let's Play YouTube Channel</h3>
-
-              <p>One of my hobbies is maintaining a Let's Play Youtube channel, in which I only have one goal: post at least one video everyday, or at least seven videos a week. I've enjoyed teaching myself how to use recording and editing software such as Open Broadcaster Software and Adobe Premiere Pro. <br />
-              Side benefits of this project include being a better impromptu speaker and learning about fair use, copyright law and the psychology of content producers and consumers.</p>
-            </section>
-
-        </div>
+</body>
 
 
-
-
-      </div>
-    </div>
--->
-
-    <script src="js/vendor/jquery.js"></script>
-    <script src="js/vendor/what-input.js"></script>
-    <script src="js/vendor/foundation.js"></script>
-    <script src="js/app.js"></script>
-  </body>
 </html>
