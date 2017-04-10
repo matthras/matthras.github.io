@@ -41,6 +41,9 @@ header {
   #content section:nth-child(even) {
     background-color: rgba(0, 0, 0, 0.75); }
 
+.divcenter {
+  text-align: center; }
+
 footer {
   background-color: black;
   text-align: center;
