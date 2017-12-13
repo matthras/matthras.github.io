@@ -2,6 +2,9 @@
   border: 2px solid white;
   border-radius: 100%;
   padding: 5px; }
+  .footer-icons:hover {
+    border: 2px solid skyblue;
+    color: skyblue; }
 
 .card-title {
   padding-bottom: 0.5em; }
