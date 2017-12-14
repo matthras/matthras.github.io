@@ -11,30 +11,36 @@
   <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
   <link type="text/css" rel="stylesheet" href="css/font-awesome.css">
   <link type="text/css" rel="stylesheet" href="css/portfolio.css">
+  <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="js/materialize.min.js"></script>
 </head>
 
 <body><a name="top"></a>
   <div class="navbar-fixed">
-  <nav>
-    <div class="container">
-      <div class="nav-wrapper">
-        <a href="#" class="brand-logo hide-on-small-only">Matt Mack's Digital Portfolio</a>
-        <a href="#" data-target="mobile-demo" class="sidenav-trigger button-collapse"><i class="material-icons">Menu</i></a>
-        <ul id="nav-mobile" class="right">
-          <li><a href="#webdev">Web Dev</a></li>
-          <li><a href="#videos">Videos</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </div>
-   </div>
-  </nav>
-</div>
+    <ul id="webdevdropdown" class="dropdown-content">
+      <li><a href="#frontend">Front End</a></li>
+      <li><a href="#fullstack">Full Stack</a></li>
+    </ul>
+    <nav>
+      <div class="container">
+        <div class="nav-wrapper">
+          <a href="#" class="brand-logo hide-on-small-only">Matt Mack's Digital Portfolio</a>
+          <a href="#" data-target="mobile-demo" class="sidenav-trigger button-collapse"><i class="material-icons">Menu</i></a>
+          <ul id="nav-mobile" class="right">
+            <li><a href="#!" class="dropdown-button" data-activates="webdevdropdown">Web Dev<i class="material-icons right">arrow_drop_down</i></a></li>
+            <li><a href="#videos">Videos</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+    </div>
+    </nav>
+  </div>
 
   <div class="container">
-    <section><a name="webdev"></a>
+    <section>
       <h2>Web Development</h2>
       <p>Matt's foray into web development begun with Wordpress and adjusting themes. In 2015 he decided to learn 'proper' web development, starting with <a href="https://freecodecamp.com">FreeCodeCamp</a>'s structured curriculum and diverging into various personal projects of interest, which you'll find below.</p>
-      <h3>Front-End</h3>
+      <a name="frontend"></a><h3>Front End</h3>
       <p>Matt doesn't consider himself a designer by any means, so don't expect anything revolutionary.</p>
       <div class="row">
         <div class="col s12 m4">
@@ -83,7 +89,7 @@
           </div>
         </div>
       </div>
-      <h3>Full-Stack</h3>
+      <a name="fullstack"></a><h3>Full Stack</h3>
       <p>In line with Matt's preference for being an all-rounder, full-stack development is what Matt finds most interesting.</p>
       <div class="row">
         <div class="col s12 m6">
@@ -122,7 +128,7 @@
           <div class="card small hoverable">
             <div class="card-content">
               <span class="card-title">XCOM2 Long War 2 Series</span>
-              <iframe width="100%" height="auto" src="https://www.youtube.com/embed/videoseries?list=PLwoKk2k6m2FzfRuu9CNYJUTd0whKwyBM3" frameborder="0" allowfullscreen></iframe>
+              <!--<iframe width="100%" height="auto" src="https://www.youtube.com/embed/videoseries?list=PLwoKk2k6m2FzfRuu9CNYJUTd0whKwyBM3" frameborder="0" allowfullscreen></iframe>-->
             </div>
             <div class="card-action">
                 <a href="https://www.youtube.com/watch?list=PLwoKk2k6m2FzfRuu9CNYJUTd0whKwyBM3&v=3APogDMZol4">Playlist on Youtube</a>
@@ -133,7 +139,7 @@
           <div class="card small hoverable">
             <div class="card-content">
               <span class="card-title">'Matt Shows Off' - Game Review Series</span>
-              <iframe width="100%" height="auto" src="https://www.youtube.com/embed/videoseries?list=PLwoKk2k6m2FzrKsTWRgrx01eQrjUOir1E" frameborder="0" allowfullscreen></iframe>
+              <!--<iframe width="100%" height="auto" src="https://www.youtube.com/embed/videoseries?list=PLwoKk2k6m2FzrKsTWRgrx01eQrjUOir1E" frameborder="0" allowfullscreen></iframe>-->
             </div>
             <div class="card-action">
                 <a href="https://www.youtube.com/watch?list=PLwoKk2k6m2FzrKsTWRgrx01eQrjUOir1E">Playlist on Youtube</a>
@@ -162,54 +168,9 @@
       </div>
     </div>
   </footer>
-  <!--<div class="pure-g">
-      <div class="pure-u-md-5-24"></div>
-      <div class="pure-u-1 pure-u-md-14-24">
-
-          <header>
-              <h1>Matthew Mack's Digital Portfolio</h1>
-          </header>
-
-      <div id="content">
-
-
-          <section>
-              <h2>Maths</h2>
-          </section>
-
-          <section>
-              <h2>Videos</h2>
-              <p>Matthew fondly remembers making vlogs back in high school using an old tape camcorder, and continues to do so with several ideas for various video projects that he'd like to embark on. The question is, does he actually have the time?</p>
-              <h3>Gaming</h3>
-              <p>The earliest gaming-related videos Matthew remembers doing was Starcraft 2 casts, now having transitioned into a generic Let's Play channel with the occasional review video.</p>
-              <div class="pure-g">
-                  <div class="pure-u-1 pure-u-md-1-2 divcenter">
-                      <h4>XCOM2 Long War 2 Series</h4>
-                      <iframe width="auto" height="auto" src="https://www.youtube.com/embed/videoseries?list=PLwoKk2k6m2FzfRuu9CNYJUTd0whKwyBM3" frameborder="0" allowfullscreen></iframe>
-                  </div>
-                  <div class="pure-u-1 pure-u-md-1-2 divcenter">
-                      <h4>'Matt Shows Off' - Game Review Series</h4>
-                      <iframe width="auto" height="auto" src="https://www.youtube.com/embed/videoseries?list=PLwoKk2k6m2FzrKsTWRgrx01eQrjUOir1E" frameborder="0" allowfullscreen></iframe>
-                  </div>
-              </div>
-          </section>
-      </div>
-
-          <footer>
-              <a href="mailto:mm@matthewmack.com.au"><i class="fa fa-envelope"></i></a>
-              <a href="https://www.twitter.com/matthras"><i class="fa fa-twitter"></i></a>
-              <a href="https://www.linkedin.com/in/matthewypmack"><i class="fa fa-linkedin"></i></a>
-              <a href="https://github.com/matthras"><i class="fa fa-github"></i></a>
-              <a href="https://www.youtube.com/channel/UCct04Lav3JdufxngZCgPwDQ"><i class="fa fa-youtube"></i></a>
-          </footer>
-
-      </div>        
-      <div class="pure-u-md-5-24"></div>
-  </div>-->
-  <script src="js/jquery-3.2.1.min.js"></script>
-  <script src="js/materialize.min.js"></script>
   <script>
-    $(document).ready(function() {
+    $( document ).ready(function() {
+      $(".dropdown-button").dropdown()
     })
   </script>
 </body>
