@@ -1,8 +1,11 @@
-// Change white colour to default 'white'
+$pseudowhite: #fafafa;
+$pseudoblack: #212121;
+
 .footer-icons {
-  border: 2px solid white;
+  border: 2px solid $pseudowhite;
   border-radius: 100%;
   padding: 5px;
+  color: $pseudowhite;
   &:hover {
     border: 2px solid skyblue; 
     color: skyblue;

@@ -1,7 +1,8 @@
 .footer-icons {
-  border: 2px solid white;
+  border: 2px solid #fafafa;
   border-radius: 100%;
-  padding: 5px; }
+  padding: 5px;
+  color: #fafafa; }
   .footer-icons:hover {
     border: 2px solid skyblue;
     color: skyblue; }
