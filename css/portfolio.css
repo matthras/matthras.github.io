@@ -1,16 +1,2 @@
-.footer-icons {
-  border: 2px solid #fafafa;
-  border-radius: 100%;
-  padding: 5px;
-  color: #fafafa; }
-  .footer-icons:hover {
-    border: 2px solid skyblue;
-    color: skyblue; }
-
-.card-title {
-  padding-bottom: 0.5em; }
-
-.card-image img {
-  height: 157px; }
-
+.footer-icons{border:2px solid #fafafa;border-radius:100%;padding:7px;color:#fafafa}.footer-icons:hover{border:2px solid skyblue;color:skyblue}.card-title{padding-bottom:0.5em}.card-image img{height:157px}.backtotop{color:#fafafa}.backtotop:hover{color:skyblue}
 /*# sourceMappingURL=portfolio.css.map */
