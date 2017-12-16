@@ -17,6 +17,21 @@
 
 <body><a name="top"></a>
   <div class="navbar-fixed">
+    <ul id="slide-out" class="side-nav">
+      <li><a class="subheader">Matt Mack's Digital Portfolio</a></li>
+      <li><div class="divider"></div></li>
+      <li><a class="subheader">Web Dev.</a></li>
+      <li><a class="waves-effect" href="#frontend">Front End</a></li>
+      <li><a class="waves-effect" href="#fullstack">Full Stack</a></li>
+      <li><div class="divider"></div></li>
+      <li><a class="waves-effect" href="#videos">Videos</a></li>
+      <li><div class="divider"></div></li>
+      <li><a class="subheader">Contact</a></li>
+      <li><a class="waves-effect" href="mailto:mm@matthewmack.com.au"><i class="fa fa-envelope"></i>Email</a></li>
+      <li><a class="waves-effect" href="https://github.com/matthras"><i class="fa fa-github"></i>Github</a></li>
+      <li><a class="waves-effect" href="https://twitter.com/matthras"><i class="fa fa-twitter"></i>Twitter</a></li>
+      <li><a class="waves-effect" href="https://www.linkedin.com/in/matthewypmack/"><i class="fa fa-linkedin"></i>LinkedIn</a></li>
+    </ul>
     <ul id="webdevdropdown" class="dropdown-content">
       <li><a href="#frontend">Front End</a></li>
       <li><a href="#fullstack">Full Stack</a></li>
@@ -24,9 +39,9 @@
     <nav>
       <div class="container">
         <div class="nav-wrapper">
-          <a href="#" class="brand-logo hide-on-small-only">Matt Mack's Digital Portfolio</a>
-          <a href="#" data-target="mobile-demo" class="sidenav-trigger button-collapse"><i class="material-icons">Menu</i></a>
-          <ul id="nav-mobile" class="right">
+          <a href="#" class="brand-logo hide-on-med-and-down">Matt Mack's Digital Portfolio</a>
+          <a href="#" data-activates="slide-out" class="button-collapse show-on-small-only"><i class="material-icons">menu</i></a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li><a href="#!" class="dropdown-button" data-activates="webdevdropdown">Web Dev<i class="material-icons right">arrow_drop_down</i></a></li>
             <li><a href="#videos">Videos</a></li>
             <li><a href="#contact">Contact</a></li>
@@ -38,7 +53,7 @@
 
   <div class="container">
     <section>
-      <h2>Web Development</h2>
+      <h2>Web Dev.</h2>
       <p>Matt's foray into web development begun with Wordpress and adjusting themes. In 2015 he decided to learn 'proper' web development, starting with <a href="https://freecodecamp.com">FreeCodeCamp</a>'s structured curriculum and diverging into various personal projects of interest, which you'll find below.</p>
       <a name="frontend"></a><h3>Front End</h3>
       <p>Matt doesn't consider himself a designer by any means, so don't expect anything revolutionary.</p>
@@ -180,7 +195,13 @@
   </footer>
   <script>
     $( document ).ready(function() {
-      $(".dropdown-button").dropdown()
+      $(".dropdown-button").dropdown();
+      $(".button-collapse").sideNav({
+        menuWidth: 300,
+        edge: 'left',
+        closeOnClick: true,
+        draggable: true
+      });
     })
   </script>
 </body>
