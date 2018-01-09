@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="has-navbar-fixed-top">
 
 <head>
   <title>Matt Mack's Digital Portfolio</title>
@@ -7,6 +7,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="A collection of Matthew Mack's digital content produced thus far.">
   <meta name="author" content="Matthew Mack">
+  <link rel="apple-touch-icon" sizes="57x57" href="favicons/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="favicons/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="favicons/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="favicons/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="favicons/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="favicons/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="favicons/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="favicons/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="favicons/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicons/android-icon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="favicons/android-icon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicons/android-icon-16x16.png">
+  <link rel="manifest" href="favicons/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link type="text/css" rel="stylesheet" href="css/bulma.css"  media="screen,projection"/>
   <link type="text/css" rel="stylesheet" href="css/font-awesome.css">
@@ -14,40 +31,38 @@
 </head>
 
 <body><a name="top"></a>
-  <div class="navbar-fixed">
-    <ul id="slide-out" class="side-nav">
-      <li><a class="subheader">Matt Mack's Digital Portfolio</a></li>
-      <li><div class="divider"></div></li>
-      <li><a class="subheader">Web Dev.</a></li>
-      <li><a class="waves-effect" href="#frontend">Front End</a></li>
-      <li><a class="waves-effect" href="#fullstack">Full Stack</a></li>
-      <li><div class="divider"></div></li>
-      <li><a class="waves-effect" href="#videos">Videos</a></li>
-      <li><div class="divider"></div></li>
-      <li><a class="subheader">Contact</a></li>
-      <li><a class="waves-effect" href="mailto:mm@matthewmack.com.au"><i class="fa fa-envelope"></i>Email</a></li>
-      <li><a class="waves-effect" href="https://github.com/matthras"><i class="fa fa-github"></i>Github</a></li>
-      <li><a class="waves-effect" href="https://twitter.com/matthras"><i class="fa fa-twitter"></i>Twitter</a></li>
-      <li><a class="waves-effect" href="https://www.linkedin.com/in/matthewypmack/"><i class="fa fa-linkedin"></i>LinkedIn</a></li>
-    </ul>
-    <ul id="webdevdropdown" class="dropdown-content">
-      <li><a href="#frontend">Front End</a></li>
-      <li><a href="#fullstack">Full Stack</a></li>
-    </ul>
-    <nav>
-      <div class="container">
-        <div class="nav-wrapper">
-          <a href="#" class="brand-logo hide-on-med-and-down">Matt Mack's Digital Portfolio</a>
-          <a href="#" data-activates="slide-out" class="button-collapse show-on-small-only"><i class="material-icons">menu</i></a>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="#!" class="dropdown-button" data-activates="webdevdropdown">Web Dev<i class="material-icons right">arrow_drop_down</i></a></li>
-            <li><a href="#videos">Videos</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-        </div>
+  <nav class="navbar is-fixed-top" role="nagivation" aria-label="main navigation">
+  <div class="container">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="http://matthras.github.io"><img src="favicons/android-icon-192x192.png">
+      </a>
+      <button class="button navbar-burger" data-target="navMenu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
-    </nav>
+    <div class="navbar-menu" id="navMenu">
+      <div class="navbar-start">
+        <a class="navbar-item" href="#top">Home</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">Web Dev.</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#frontend">Front End</a>
+            <a class="navbar-item" href="#fullstack">Full Stack</a>
+          </div>
+        </div>
+        <a class="navbar-item" href="#videos">Videos</a>
+      </div>
+      <div class="navbar-end">
+        <a href="mailto:mm@matthewmack.com.au" class="navbar-item" target="_blank" rel="noopener noreferrer"><i class="fa fa-envelope"></i><span class="is-hidden-desktop"> mm@matthewmack.com.au</span></a>
+        <a href="https://twitter.com/matthras" class="navbar-item" target="_blank" rel="noopener noreferrer"><i class="fa fa-twitter"></i><span class="is-hidden-desktop"> Twitter</span></a>
+        <a href="https://github.com/matthras" class="navbar-item" target="_blank" rel="noopener noreferrer"><i class="fa fa-github"></i><span class="is-hidden-desktop"> Github</span></a>
+        <a href="https://linkedin.com/in/matthewypmack" class="navbar-item" target="_blank" rel="noopener noreferrer"><i class="fa fa-linkedin"></i><span class="is-hidden-desktop"> LinkedIn</span></a>
+      </div>
+    </div>
   </div>
+  </nav>
 
   <div class="container">
     <section>
@@ -141,8 +156,8 @@
         </div>
       </div>
     </section>
-    <section><a name="videos"></a>
-      <h2>Videos</h2>
+    <section>
+      <a name="videos"></a><h2>Videos</h2>
       <p>Matthew fondly remembers making vlogs back in high school using an old tape camcorder, and continues to do so with several ideas for various video projects that he'd like to embark on.</p>
       <h3>Gaming</h3>
       <p>The earliest gaming-related videos Matthew remembers doing was Starcraft 2 casts, now having transitioned into a generic Let's Play channel with the occasional review video.</p>
@@ -206,6 +221,32 @@
       </div>
     </div>
   </footer>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+    // Get all "navbar-burger" elements
+    var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+    // Check if there are any navbar burgers
+    if ($navbarBurgers.length > 0) {
+      // Add a click event on each of them
+      $navbarBurgers.forEach(function ($el) {
+        $el.addEventListener('click', function () {
+
+        // Get the target from the "data-target" attribute
+        var target = $el.dataset.target;
+        var $target = document.getElementById(target);
+
+        // Toggle the class on both the "navbar-burger" and the "navbar-menu"
+        $el.classList.toggle('is-active');
+        $target.classList.toggle('is-active');
+
+        });
+      });
+    }
+
+});
+  </script>
 </body>
 
 
