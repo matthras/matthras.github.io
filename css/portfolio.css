@@ -1,2 +1,7 @@
-.footer-icons{border:2px solid #fafafa;border-radius:100%;padding:7px;color:#fafafa}.footer-icons:hover{border:2px solid skyblue;color:skyblue}.card-title{padding-bottom:0.5em}.card-image img{height:157px}.backtotop{color:#fafafa}.backtotop:hover{color:skyblue}
+.navbar {
+  box-shadow: 0px 1px 5px 0px; }
+
+.card:hover {
+  box-shadow: 0px 3px 5px 0px; }
+
 /*# sourceMappingURL=portfolio.css.map */
