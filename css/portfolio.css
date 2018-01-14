@@ -260,7 +260,7 @@ p + .typl8-drop-cap {
  * Extend this object into your markup.
  *
  */
-.navbar, footer {
+.navbar, .footer {
   -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75); }
