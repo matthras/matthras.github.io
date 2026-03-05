@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Times Tables Challenge</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0d0d;
+    --surface: #181818;
+    --surface2: #222222;
+    --border: #2e2e2e;
+    --accent: #f5c542;
+    --accent2: #ff6b35;
+    --green: #4ade80;
+    --red: #f87171;
+    --text: #f0f0f0;
+    --muted: #888;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px 80px;
+  }
+
+  /* Subtle grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(245,197,66,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(245,197,66,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrapper {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 780px;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 10vw, 96px);
+    letter-spacing: 4px;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  header p {
+    color: var(--muted);
+    font-size: 14px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-top: 8px;
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ── SETUP PANEL ── */
+  #setup-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .config-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .config-item {
+    flex: 1;
+    min-width: 160px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .config-item label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+  }
+
+  .config-item input[type="number"] {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 28px;
+    padding: 14px 18px;
+    width: 100%;
+    transition: border-color 0.2s;
+    -moz-appearance: textfield;
+  }
+
+  .config-item input[type="number"]::-webkit-inner-spin-button,
+  .config-item input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
+
+  .config-item input[type="number"]:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+
+  .stepper {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .stepper button {
+    background: none;
+    border: none;
+    color: var(--accent);
+    font-size: 24px;
+    width: 48px;
+    height: 60px;
+    cursor: pointer;
+    transition: background 0.15s;
+    font-family: 'DM Mono', monospace;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .stepper button:hover { background: rgba(245,197,66,0.1); }
+
+  .stepper span {
+    flex: 1;
+    text-align: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 28px;
+    color: var(--text);
+  }
+
+  .start-btn {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border: none;
+    border-radius: 12px;
+    color: #0d0d0d;
+    cursor: pointer;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 3px;
+    padding: 18px;
+    width: 100%;
+    transition: opacity 0.2s, transform 0.15s;
+  }
+
+  .start-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+  .start-btn:active { transform: translateY(0); }
+
+  /* ── QUIZ PANEL ── */
+  #quiz-panel { display: none; flex-direction: column; gap: 24px; }
+
+  /* Timer bar */
+  .timer-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .timer-display {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 64px;
+    letter-spacing: 2px;
+    line-height: 1;
+    transition: color 0.3s;
+  }
+
+  .timer-display.urgent { color: var(--accent2); }
+  .timer-display.normal { color: var(--accent); }
+
+  .timer-bar-outer {
+    flex: 1;
+    height: 8px;
+    background: var(--border);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+
+  .timer-bar-inner {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    border-radius: 99px;
+    transition: width 0.5s linear;
+    width: 100%;
+  }
+
+  /* Questions grid */
+  #questions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+
+  .q-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: border-color 0.2s;
+  }
+
+  .q-card:focus-within { border-color: var(--accent); }
+
+  .q-card.correct { border-color: var(--green); background: rgba(74,222,128,0.06); }
+  .q-card.wrong   { border-color: var(--red);   background: rgba(248,113,113,0.06); }
+
+  .q-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 17px;
+    color: var(--text);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .q-equals {
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    font-size: 17px;
+    flex-shrink: 0;
+  }
+
+  .q-input {
+    background: var(--surface2);
+    border: 1px solid transparent;
+    border-radius: 8px;
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 18px;
+    padding: 6px 10px;
+    width: 72px;
+    text-align: center;
+    transition: border-color 0.2s;
+    -moz-appearance: textfield;
+  }
+  .q-input::-webkit-inner-spin-button,
+  .q-input::-webkit-outer-spin-button { -webkit-appearance: none; }
+  .q-input:focus { outline: none; border-color: var(--accent); }
+  .q-input:disabled { opacity: 0.7; cursor: not-allowed; }
+
+  .q-result {
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  .q-card.correct .q-result { color: var(--green); }
+  .q-card.wrong   .q-result { color: var(--red); }
+
+  /* ── RESULTS PANEL ── */
+  #results-panel {
+    display: none;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 36px;
+    text-align: center;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .score-big {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 96px;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .score-label {
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+  }
+
+  .score-accuracy {
+    font-family: 'DM Mono', monospace;
+    font-size: 18px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    margin-top: -12px;
+  }
+
+  .score-msg {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .play-again-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: var(--text);
+    cursor: pointer;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 2px;
+    padding: 14px 40px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .play-again-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  @media (max-width: 480px) {
+    #questions-grid { grid-template-columns: 1fr 1fr; }
+    .timer-display { font-size: 48px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <header>
+    <h1>Times Tables</h1>
+    <p>Mental Arithmetic Challenge</p>
+  </header>
+
+  <!-- SETUP -->
+  <div id="setup-panel">
+    <div class="config-row">
+      <div class="config-item">
+        <label>Number of Questions</label>
+        <div class="stepper" id="q-stepper">
+          <button onclick="adjustQ(-5)">−</button>
+          <span id="q-count-display">50</span>
+          <button onclick="adjustQ(+5)">+</button>
+        </div>
+      </div>
+      <div class="config-item">
+        <label>Time Limit (seconds)</label>
+        <div class="stepper" id="t-stepper">
+          <button onclick="adjustT(-15)">−</button>
+          <span id="t-count-display">60</span>
+          <button onclick="adjustT(+15)">+</button>
+        </div>
+      </div>
+    </div>
+    <button class="start-btn" onclick="startQuiz()">▶ Start Challenge</button>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quiz-panel">
+    <div class="timer-wrap">
+      <div class="timer-display normal" id="timer-display">01:00</div>
+      <div class="timer-bar-outer">
+        <div class="timer-bar-inner" id="timer-bar"></div>
+      </div>
+    </div>
+    <div id="questions-grid"></div>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="results-panel">
+    <div class="score-label">Your Score</div>
+    <div class="score-big" id="score-big">—</div>
+    <div class="score-accuracy" id="score-accuracy"></div>
+    <div class="score-msg" id="score-msg"></div>
+    <button class="play-again-btn" onclick="resetToSetup()">↩ Play Again</button>
+  </div>
+</div>
+
+<script>
+  let questionCount = 50;
+  let timeLimit = 60;
+  let timerInterval = null;
+  let timeLeft = 60;
+  let questions = [];
+
+  /* ── Steppers ── */
+  function adjustQ(delta) {
+    questionCount = Math.max(5, Math.min(100, questionCount + delta));
+    document.getElementById('q-count-display').textContent = questionCount;
+  }
+
+  function adjustT(delta) {
+    timeLimit = Math.max(15, Math.min(300, timeLimit + delta));
+    document.getElementById('t-count-display').textContent = timeLimit;
+  }
+
+  /* ── Generate questions ── */
+  function generateQuestions(n) {
+    const qs = [];
+    const used = new Set();
+    while (qs.length < n) {
+      const a = Math.floor(Math.random() * 12) + 1;
+      const b = Math.floor(Math.random() * 12) + 1;
+      const key = `${Math.min(a,b)}x${Math.max(a,b)}`;
+      if (!used.has(key) || qs.length >= 144) {
+        used.add(key);
+        qs.push({ a, b, answer: a * b });
+      }
+    }
+    return qs;
+  }
+
+  /* ── Timer ── */
+  function formatTime(s) {
+    const m = Math.floor(s / 60);
+    const sec = s % 60;
+    return `${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+  }
+
+  function startTimer() {
+    timeLeft = timeLimit;
+    const timerEl = document.getElementById('timer-display');
+    const barEl = document.getElementById('timer-bar');
+    timerEl.textContent = formatTime(timeLeft);
+    timerEl.className = 'timer-display normal';
+    barEl.style.width = '100%';
+
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      timerEl.textContent = formatTime(timeLeft);
+      barEl.style.width = `${(timeLeft / timeLimit) * 100}%`;
+
+      if (timeLeft <= timeLimit * 0.25) {
+        timerEl.className = 'timer-display urgent';
+      }
+
+      if (timeLeft <= 0) {
+        clearInterval(timerInterval);
+        endQuiz();
+      }
+    }, 1000);
+  }
+
+  /* ── Start Quiz ── */
+  function startQuiz() {
+    questions = generateQuestions(questionCount);
+
+    const grid = document.getElementById('questions-grid');
+    grid.innerHTML = '';
+
+    questions.forEach((q, i) => {
+      const card = document.createElement('div');
+      card.className = 'q-card';
+      card.id = `card-${i}`;
+      card.innerHTML = `
+        <span class="q-label">${q.a} × ${q.b}</span>
+        <span class="q-equals">=</span>
+        <input class="q-input" type="number" id="ans-${i}" placeholder="?" autocomplete="off">
+        <span class="q-result" id="res-${i}"></span>
+      `;
+      grid.appendChild(card);
+
+      // Tab to next on Enter
+      card.querySelector('input').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          const next = document.getElementById(`ans-${i+1}`);
+          if (next) next.focus();
+        }
+      });
+    });
+
+    document.getElementById('setup-panel').style.display = 'none';
+    document.getElementById('results-panel').style.display = 'none';
+    const quizPanel = document.getElementById('quiz-panel');
+    quizPanel.style.display = 'flex';
+
+    // Focus first input
+    document.getElementById('ans-0')?.focus();
+
+    startTimer();
+  }
+
+  /* ── End Quiz & Grade ── */
+  function endQuiz() {
+    // Disable all inputs
+    questions.forEach((q, i) => {
+      const input = document.getElementById(`ans-${i}`);
+      input.disabled = true;
+      const userVal = parseInt(input.value, 10);
+      const card = document.getElementById(`card-${i}`);
+      const result = document.getElementById(`res-${i}`);
+      if (!isNaN(userVal) && userVal === q.answer) {
+        card.classList.add('correct');
+        result.textContent = '✓';
+      } else if (input.value !== '') {
+        card.classList.add('wrong');
+        result.textContent = `✗ ${q.answer}`;
+      } else {
+        // unanswered — leave neutral, show the answer dimly
+        result.textContent = q.answer;
+        result.style.color = 'var(--muted)';
+      }
+    });
+
+    // Tally score — only count answered questions
+    let correct = 0;
+    let answered = 0;
+    questions.forEach((q, i) => {
+      const input = document.getElementById(`ans-${i}`);
+      if (input.value !== '') {
+        answered++;
+        const val = parseInt(input.value, 10);
+        if (!isNaN(val) && val === q.answer) correct++;
+      }
+    });
+
+    const pct = answered > 0 ? Math.round((correct / answered) * 100) : 0;
+    document.getElementById('score-big').textContent = `${correct}/${answered}`;
+    document.getElementById('score-accuracy').textContent = `${pct}% accuracy`;
+
+    let msg;
+    if (answered === 0)   msg = '🤔 No answers submitted!';
+    else if (pct === 100) msg = '🏆 Perfect score! Flawless!';
+    else if (pct >= 90)   msg = '🔥 Outstanding — almost perfect!';
+    else if (pct >= 75)   msg = '⚡ Great work — you\'re sharp!';
+    else if (pct >= 50)   msg = '💪 Good effort — keep practising!';
+    else                  msg = '📚 Keep at it — you\'ll get there!';
+
+    document.getElementById('score-msg').textContent = msg;
+
+    // Show results after a moment
+    setTimeout(() => {
+      document.getElementById('results-panel').style.display = 'flex';
+      document.getElementById('results-panel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 800);
+  }
+
+  /* ── Reset ── */
+  function resetToSetup() {
+    clearInterval(timerInterval);
+    document.getElementById('quiz-panel').style.display = 'none';
+    document.getElementById('results-panel').style.display = 'none';
+    document.getElementById('setup-panel').style.display = 'flex';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
